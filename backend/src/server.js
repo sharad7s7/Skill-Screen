@@ -1,21 +1,21 @@
 import express from 'express';
 import { ENV } from './lib/env.js';
 import { connectDB } from './lib/db.js';
-// import { inngest, functions } from "./lib/inngest.js";
+import { inngest, functions } from "./lib/inngest.js";
 import cors from 'cors';
 import path from 'path';
-// import { serve } from 'inngest/express';
+import { serve } from 'inngest/express';
 
 const app = express();
 const __dirname = path.resolve();
 
 //middleware
 app.use(express.json());
-// app.use(cors({
-//     origin: ENV.CLIENT_URL,
-//     credentials: true,  //credentials allows cookies to be sent along with requests
-// }));
-// app.use("/api/inngest", serve({ client: inngest, functions }));
+app.use(cors({
+    origin: ENV.CLIENT_URL,
+    credentials: true,  //credentials allows cookies to be sent along with requests
+}));
+app.use("/api/inngest", serve({ client: inngest, functions }));
 
 
 //deployment part
