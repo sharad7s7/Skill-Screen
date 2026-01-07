@@ -1,12 +1,32 @@
 import express from 'express';
 import { ENV } from './lib/env.js';
 import { connectDB } from './lib/db.js';
+// import { inngest, functions } from "./lib/inngest.js";
+import cors from 'cors';
+import path from 'path';
+// import { serve } from 'inngest/express';
 
 const app = express();
+const __dirname = path.resolve();
 
-app.get('/', (req, res) => {
-    res.status(200).json({msg:"Server is running successfully"});
-})
+//middleware
+app.use(express.json());
+// app.use(cors({
+//     origin: ENV.CLIENT_URL,
+//     credentials: true,  //credentials allows cookies to be sent along with requests
+// }));
+// app.use("/api/inngest", serve({ client: inngest, functions }));
+
+
+//deployment part
+if (ENV.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "../frontend/dist")));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
+  });
+}
+
 
 const startserver=async () => {
     try{
