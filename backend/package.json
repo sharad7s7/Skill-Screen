@@ -19,6 +19,7 @@
     "inngest": "^3.48.1",
     "mongoose": "^9.1.1",
     "nodemon": "^3.1.11",
-    "skill-screen": "file:.."
+    "skill-screen": "file:..",
+    "stream-chat": "^9.28.0"
   }
 }
