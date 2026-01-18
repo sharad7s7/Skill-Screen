@@ -15,10 +15,12 @@ const __dirname = path.resolve();
 
 //middleware
 app.use(express.json());
-app.use(cors({
-    origin: ENV.CLIENT_URL,
-    credentials: true,  //credentials allows cookies to be sent along with requests
-}));
+app.use(
+  cors({
+    origin: ["http://localhost:5173", ENV.CLIENT_URL],
+    credentials: true,
+  })
+);
 app.use(clerkMiddleware());
 
 
