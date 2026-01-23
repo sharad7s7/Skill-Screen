@@ -3,10 +3,10 @@ import { connectDB } from "./db.js";
 import User from "../models/User.js";
 import { deleteStreamUser, upsertStreamUser } from "./stream.js";
 
-export const inngest = new Inngest({ id: "Skill-Screen" });
+export const inngest = new Inngest({ id: "talent-iq" });
 
-const addUser = inngest.createFunction(
-  { id: "add-user" },
+const syncUser = inngest.createFunction(
+  { id: "sync-user" },
   { event: "clerk/user.created" },
   async ({ event }) => {
     await connectDB();
@@ -30,8 +30,8 @@ const addUser = inngest.createFunction(
   }
 );
 
-const deleteUser = inngest.createFunction(
-  { id: "delete-user" },
+const deleteUserFromDB = inngest.createFunction(
+  { id: "delete-user-from-db" },
   { event: "clerk/user.deleted" },
   async ({ event }) => {
     await connectDB();
@@ -43,4 +43,4 @@ const deleteUser = inngest.createFunction(
   }
 );
 
-export const functions = [addUser, deleteUser];
+export const functions = [syncUser, deleteUserFromDB];
